@@ -80,7 +80,7 @@
     .selected { background: #00ff88 !important; color: #000 !important; }
     #month-selector { background: rgba(0,0,0,0.3); color: #00e0ff; border: 1px solid #00e0ff; border-radius: 10px; padding: 6px 10px; margin-top: 10px; font-weight: 600; }
 
-    /* GRID EXCURSIONES */
+    /* Excursiones */
     .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; padding: 40px; max-width: 1400px; margin: auto; }
     section { background: rgba(255,255,255,0.08); padding: 25px; border-radius: 15px; backdrop-filter: blur(10px); transition: transform 0.4s ease, box-shadow 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; }
     section:hover { transform: translateY(-5px); box-shadow: 0 0 15px rgba(0,224,255,0.4); }
@@ -91,6 +91,8 @@
     ul { list-style: none; padding-left: 0; }
     ul li { margin: 8px 0; }
     .icon { color: #00e0ff; margin-right: 10px; }
+
+
 
     /* BOTÓN SUBIR IMAGEN */
     .upload-box { margin-top: 10px; text-align: center; }
@@ -132,15 +134,47 @@
     <h3><i class="fa-solid fa-calendar-days icon"></i>Calendario</h3>
     <p>Selecciona el mes y marca tu excursión 🌴</p>
     <select id="month-selector">
-      <option value="2025-11">🗓️ Noviembre 2025</option>
+      <option value="2025-11">🌴/🎠 Noviembre 2025</option>
       <option value="2025-12">🎄 Diciembre 2025</option>
     </select>
     <div id="calendar-container"></div>
     <p id="selected-event" class="mt-3"></p>
   </section>
+  
 
   <!-- EXCURSIONES -->
   <div class="grid-container">
+
+    
+    <!-- KIDZANIA -->
+    <section id="kidzania">
+      <div>
+        <h3><i class="fa-solid fa-children icon"></i>¡Viaje Épico a KidZania! 🚌🎉</h3>
+        <p><strong>Fecha:</strong> Sábado, 22 de Noviembre de 2025</p>
+        <ul>
+          <li>👧👦 ¡La Ciudad de los Niños te Espera!</li>
+          <li>🚌 Transporte de lujo con Joserak Excursiones</li>
+          <li>🎟️ Entrada VIP a KidZania: ¡Acceso total a la diversión!</li>
+        </ul>
+        <p><strong>Precios:</strong></p>
+        <ul>
+          <li>🧒 Niños: <strong>$850</strong></li>
+          <li>🧑 Adultos: <strong>$650</strong></li>
+        </ul>
+        <p>🌟 ¡Creá recuerdos inolvidables! Cupos limitados.</p>
+        <a href="https://wa.me/527771038952" target="_blank" class="btn-whatsapp">
+          📞 ¡Reservá Ahora!
+        </a>
+      </div>
+     <div class="section-img">
+        <img id="imgPuerto" src="img/puerto_esc_st.jpeg" alt="Puerto Escondido">
+        <div class="upload-box">
+          <label for="filePuerto" class="upload-btn">📸 Cambiar Imagen</label>
+          <input type="file" id="filePuerto" accept="image/*">
+        </div>
+      </div>
+    </section>
+    
     <!-- Puerto -->
     <section id="puerto">
       <div>
@@ -258,7 +292,7 @@
     const calendarContainer=document.getElementById('calendar-container');
     const monthSelector=document.getElementById('month-selector');
     const selectedEvent=document.getElementById('selected-event');
-    const eventos={'2025-11-05':'Puerto Escondido 🌊','2025-11-06':'Puerto Escondido 🌊','2025-11-07':'Puerto Escondido 🌊','2025-11-08':'Puerto Escondido 🌊','2025-12-18':'Ixtapa 🌴','2025-12-19':'Ixtapa 🌴','2025-12-20':'Ixtapa 🌴','2025-12-21':'Ixtapa 🌴','2025-12-31':'Acapulco 🎆'};
+    const eventos={'2025-11-22':'Kidzania','2025-11-05':'Puerto Escondido 🌊','2025-11-06':'Puerto Escondido 🌊','2025-11-07':'Puerto Escondido 🌊','2025-11-08':'Puerto Escondido 🌊','2025-12-18':'Ixtapa 🌴','2025-12-19':'Ixtapa 🌴','2025-12-20':'Ixtapa 🌴','2025-12-21':'Ixtapa 🌴','2025-12-31':'Acapulco 🎆'};
     const daysOfWeek=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
 
     function generarCalendario(year,month){
@@ -323,6 +357,7 @@
 </div>
 </body>
 </html>
+
 
 
 
