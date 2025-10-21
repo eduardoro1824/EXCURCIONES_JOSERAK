@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Excursiones Joserak - Viajes Inolvidables</title>
+
+  <!-- Favicon -->
+  <link id="favicon" rel="icon" type="image/png" href="img/LOGO-JOSERAK.jpeg" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    body { 
+      font-family: 'Poppins', sans-serif; 
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed; 
+      background-size: cover; 
+      color: #fff; 
+      scroll-behavior: smooth; 
+    }
+
+    .overlay { background: rgba(0, 0, 0, 0.7); min-height: 100vh; padding-bottom: 40px; }
+
+     /* Encabezado con logo redondo */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      position: sticky;
+      top: 0;
+      background: rgba(131, 131, 131, 0);
+      text-align: center;
+      padding: 15px;
+      font-size: 1.8em;
+      font-weight: 600;
+      z-index: 1000;
+      
+      backdrop-filter: blur(6px);
+    }
+
+    header img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 3px solid #00e0ff;
+      box-shadow: 0 0 15px #00e0ff;
+      object-fit: cover;
+    }
+    header h1 { font-size: 2.8rem; color: #00e0ff; font-weight: 700; text-shadow: 0 0 20px #00e0ff; }
+    header h2 { font-size: 1.2rem; color: #f0f0f0; margin-top: 10px; }
+
+    /* Botón subir logo */
+    .logo-upload {
+      text-align: center;
+      margin: 15px 0 20px 0;
+    }
+
+ input[type="file"] { display: none; }
+    label.upload-btn {
+      background: #00e0ff;
+      color: black;
+      padding: 8px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    label.upload-btn:hover { background: #00ff88; }
+
+    /* CALENDARIO */
+    #calendario { max-width: 900px; margin: 0 auto 40px; background: rgba(255,255,255,0.08); padding: 25px; border-radius: 15px; backdrop-filter: blur(10px); text-align: center; }
+    #calendar-container { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-top: 15px; }
+    .day-name { font-weight: 600; color: #00e0ff; background: rgba(255,255,255,0.05); padding: 10px 0; border-radius: 8px; }
+    .day { background: rgba(255,255,255,0.1); padding: 10px 0; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+    .day:hover { background: rgba(0,224,255,0.3); }
+    .event-day { background: rgba(0,224,255,0.6); color: #000; font-weight: bold; border: 2px solid #00ffcc; box-shadow: 0 0 10px rgba(0,224,255,0.8); }
+    .selected { background: #00ff88 !important; color: #000 !important; }
+    #month-selector { background: rgba(0,0,0,0.3); color: #00e0ff; border: 1px solid #00e0ff; border-radius: 10px; padding: 6px 10px; margin-top: 10px; font-weight: 600; }
+
+    /* GRID EXCURSIONES */
+    .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; padding: 40px; max-width: 1400px; margin: auto; }
+    section { background: rgba(255,255,255,0.08); padding: 25px; border-radius: 15px; backdrop-filter: blur(10px); transition: transform 0.4s ease, box-shadow 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; }
+    section:hover { transform: translateY(-5px); box-shadow: 0 0 15px rgba(0,224,255,0.4); }
+    .section-img { margin-top: 15px; border-radius: 10px; overflow: hidden; text-align: center; }
+    .section-img img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; transition: transform 0.4s ease; }
+    .section-img img:hover { transform: scale(1.05); }
+    h3 { color: #00e0ff; border-bottom: 2px solid #00e0ff; display: inline-block; margin-bottom: 15px; }
+    ul { list-style: none; padding-left: 0; }
+    ul li { margin: 8px 0; }
+    .icon { color: #00e0ff; margin-right: 10px; }
+
+    /* BOTÓN SUBIR IMAGEN */
+    .upload-box { margin-top: 10px; text-align: center; }
+    input[type="file"] { display: none; }
+    label.upload-btn { background: #00e0ff; color: black; padding: 6px 12px; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+    label.upload-btn:hover { background: #00ff88; }
+
+    /* AUTOBUS */
+    #asientos { max-width: 800px; margin: 40px auto; text-align: center; }
+    .bus-layout { display: grid; grid-template-columns: repeat(2, 1fr) 50px repeat(2, 1fr); gap: 10px; justify-content: center; align-items: center; margin: 20px auto; max-width: 500px; }
+    .seat { width: 50px; height: 40px; border-radius: 6px; background: rgba(255,255,255,0.15); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; box-shadow: inset 0 0 5px rgba(255,255,255,0.2); }
+    .seat:hover { background: rgba(0,224,255,0.4); }
+    .seat.reserved { background: rgba(255,0,0,0.6); color: #fff; cursor: not-allowed; }
+    .seat.apartando { background: #ffd700; color: #000; font-weight: bold; }
+    .seat.selected { background: #00ff88; color: #000; font-weight: bold; }
+    .aisle { background: transparent; pointer-events: none; }
+
+    .btn-whatsapp { background-color: #25d366; color: white; font-weight: bold; border: none; padding: 10px 20px; border-radius: 50px; text-decoration: none; transition: background 0.3s; }
+    .btn-whatsapp:hover { background-color: #1ebe5d; color: white; }
+
+    footer { text-align: center; margin-top: 30px; padding: 20px; color: #ccc; font-size: 0.9rem; }
+    .social { margin-top: 20px; font-size: 1.5rem; }
+    .social a { color: #00e0ff; margin: 0 10px; transition: color 0.3s; }
+    .social a:hover { color: #00ff88; }
+  </style>
+</head>
+<body>
+<div class="overlay">
+  <header>
+    <img id="logo" src="img/LOGO-JOSERAK.jpeg" alt="Logo Joserak">
+    <div>
+      <h1>🌴 Excursiones Joserak 🌊</h1>
+      <h2>¡Viajar con nosotros es una experiencia inolvidable!</h2>
+    </div>
+  </header>
+
+  <!-- CALENDARIO -->
+  <section id="calendario">
+    <h3><i class="fa-solid fa-calendar-days icon"></i>Calendario</h3>
+    <p>Selecciona el mes y marca tu excursión 🌴</p>
+    <select id="month-selector">
+      <option value="2025-11">🗓️ Noviembre 2025</option>
+      <option value="2025-12">🎄 Diciembre 2025</option>
+    </select>
+    <div id="calendar-container"></div>
+    <p id="selected-event" class="mt-3"></p>
+  </section>
+
+  <!-- EXCURSIONES -->
+  <div class="grid-container">
+    <!-- Puerto -->
+    <section id="puerto">
+      <div>
+        <h3><i class="fa-solid fa-location-dot icon"></i>Puerto Escondido</h3>
+        <p><strong>Fechas:</strong> 5 al 8 de Noviembre 2025</p>
+        <table class="table table-dark table-striped mt-2">
+          <tr><th>Habitación</th><th>Personas</th><th>Costo</th></tr>
+          <tr><td>Compartida</td><td>5-6</td><td>$3,800</td></tr>
+          <tr><td>Intermedia</td><td>3-4</td><td>$4,100</td></tr>
+          <tr><td>Doble</td><td>2</td><td>$4,400</td></tr>
+        </table>
+        <ul>
+          <li>✅ Autobús de lujo</li>
+          <li>✅ 3 noches de hospedaje</li>
+          <li>💳 Aparta con $2,000</li>
+        </ul>
+      </div>
+      <div class="section-img">
+        <img id="imgPuerto" src="img/puerto_esc_st.jpeg" alt="Puerto Escondido">
+        <div class="upload-box">
+          <label for="filePuerto" class="upload-btn">📸 Cambiar Imagen</label>
+          <input type="file" id="filePuerto" accept="image/*">
+        </div>
+      </div>
+    </section>
+
+    <!-- Ixtapa -->
+    <section id="ixtapa">
+      <div>
+        <h3><i class="fa-solid fa-umbrella-beach icon"></i>Ixtapa Zihuatanejo</h3>
+        <p><strong>Fechas:</strong> 18 al 21 de Diciembre 2025</p>
+        <table class="table table-dark table-striped mt-2">
+          <tr><th>Habitación</th><th>Personas</th><th>Costo</th></tr>
+          <tr><td>Compartida</td><td>5-6</td><td>$3,400</td></tr>
+          <tr><td>Intermedia</td><td>3-4</td><td>$3,600</td></tr>
+          <tr><td>Doble</td><td>2</td><td>$3,800</td></tr>
+        </table>
+        <ul>
+          <li>✅ Transporte en autobús</li>
+          <li>✅ Hospedaje 3 noches</li>
+          <li>💳 Aparta con $2,000</li>
+        </ul>
+      </div>
+      <div class="section-img">
+        <img id="imgIxtapa" src="img/ixtapap_st.jpeg" alt="Ixtapa">
+        <div class="upload-box">
+          <label for="fileIxtapa" class="upload-btn">📸 Cambiar Imagen</label>
+          <input type="file" id="fileIxtapa" accept="image/*">
+        </div>
+      </div>
+    </section>
+
+    <!-- Acapulco -->
+    <section id="acapulco">
+      <div>
+        <h3><i class="fa-solid fa-fireworks icon"></i>Acapulco Fin de Año 🎆</h3>
+        <p><strong>Viaje Express:</strong> 31 diciembre 2025</p>
+        <ul>
+          <li>🚌 Salida 2:00 AM</li>
+          <li>🏖️ Regreso 1:30 AM (1 de enero)</li>
+          <li>🔥 Ideal para despedir el año con estilo</li>
+        </ul>
+      </div>
+      <div class="section-img">
+        <img id="imgAcapulco" src="img/acapulco_st.jpeg" alt="Acapulco">
+        <div class="upload-box">
+          <label for="fileAcapulco" class="upload-btn">📸 Cambiar Imagen</label>
+          <input type="file" id="fileAcapulco" accept="image/*">
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ASIENTOS -->
+  <section id="asientos">
+    <h3><i class="fa-solid fa-bus icon"></i>Selecciona tus Asientos</h3>
+    <p>Haz clic en los asientos disponibles (verde = tuyo, amarillo = apartando, rojo = ocupado)</p>
+    <div class="bus-layout" id="bus-layout"></div>
+    <p id="asientos-seleccionados"></p>
+    <a id="whatsapp-link" href="#" target="_blank" class="btn-whatsapp" style="display:none;">
+      <i class="fab fa-whatsapp"></i> Confirmar por WhatsApp
+    </a>
+  </section>
+
+  <footer>
+    <p>© 2025 Excursiones Joserak | 🌴 Viajes con estilo y diversión</p>
+    <div class="social">
+      <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://wa.me/527771038952" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    /* === SUBIR IMÁGENES === */
+    const inputs = [
+      {file: 'filePuerto', img: 'imgPuerto'},
+      {file: 'fileIxtapa', img: 'imgIxtapa'},
+      {file: 'fileAcapulco', img: 'imgAcapulco'}
+    ];
+    inputs.forEach(el => {
+      const fileInput = document.getElementById(el.file);
+      const imgTag = document.getElementById(el.img);
+      fileInput.addEventListener('change', e => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = () => imgTag.src = reader.result;
+          reader.readAsDataURL(file);
+        }
+      });
+    });
+
+    /* === CALENDARIO === */
+    const calendarContainer=document.getElementById('calendar-container');
+    const monthSelector=document.getElementById('month-selector');
+    const selectedEvent=document.getElementById('selected-event');
+    const eventos={'2025-11-05':'Puerto Escondido 🌊','2025-11-06':'Puerto Escondido 🌊','2025-11-07':'Puerto Escondido 🌊','2025-11-08':'Puerto Escondido 🌊','2025-12-18':'Ixtapa 🌴','2025-12-19':'Ixtapa 🌴','2025-12-20':'Ixtapa 🌴','2025-12-21':'Ixtapa 🌴','2025-12-31':'Acapulco 🎆'};
+    const daysOfWeek=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+
+    function generarCalendario(year,month){
+      calendarContainer.innerHTML='';
+      selectedEvent.innerText='';
+      const firstDay=new Date(year,month-1,1).getDay();
+      const totalDays=new Date(year,month,0).getDate();
+      daysOfWeek.forEach(d=>{const div=document.createElement('div');div.className='day-name';div.textContent=d;calendarContainer.appendChild(div);});
+      for(let i=0;i<firstDay;i++){calendarContainer.appendChild(document.createElement('div'));}
+      for(let d=1;d<=totalDays;d++){
+        const dateKey=`${year}-${String(month).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const div=document.createElement('div');div.className='day';div.textContent=d;
+        if(eventos[dateKey]){div.classList.add('event-day');div.title=eventos[dateKey];}
+        div.onclick=()=>{div.classList.toggle('selected');mostrarEventosSeleccionados();};
+        calendarContainer.appendChild(div);
+      }
+    }
+    function mostrarEventosSeleccionados(){
+      const seleccionados=Array.from(document.querySelectorAll('.day.selected')).map(d=>d.title).filter(Boolean);
+      selectedEvent.textContent=seleccionados.length>0?`Seleccionaste: ${[...new Set(seleccionados)].join(', ')}`:'';
+    }
+    generarCalendario(2025,11);
+    monthSelector.onchange=e=>{const [year,month]=e.target.value.split('-');generarCalendario(+year,+month);};
+
+    /* === AUTOBÚS === */
+    const busLayout=document.getElementById('bus-layout');
+    const textoSeleccionados=document.getElementById('asientos-seleccionados');
+    const whatsappLink=document.getElementById('whatsapp-link');
+    let numero=1;
+    const asientosReservados=[];
+    const asientosApartando=new Set();
+    const seleccionados=new Set();
+
+    for(let fila=1;fila<=6;fila++){
+      for(let col=1;col<=5;col++){
+        const seat=document.createElement('div');
+        if(col===3){seat.className='aisle';busLayout.appendChild(seat);continue;}
+        seat.className='seat';seat.textContent=numero;
+        seat.onclick=()=>{if(asientosReservados.includes(numero))return;if(seleccionados.has(numero)){seleccionados.delete(numero);asientosApartando.delete(numero);seat.classList.remove('selected','apartando');}else{seleccionados.add(numero);asientosApartando.add(numero);seat.classList.add('selected','apartando');}actualizarInterfaz();};
+        busLayout.appendChild(seat);numero++;
+      }
+    }
+
+    function actualizarInterfaz(){
+      textoSeleccionados.textContent=seleccionados.size>0?'Asientos seleccionados: '+[...seleccionados].join(', '):'';
+      whatsappLink.style.display=seleccionados.size>0?'inline-block':'none';
+      const mensaje=encodeURIComponent('Hola! Quiero reservar los asientos: '+[...seleccionados].join(', '));
+      whatsappLink.href=`https://wa.me/5215555555555?text=${mensaje}`;
+    }
+
+    whatsappLink.onclick=()=>{
+      seleccionados.forEach(n=>{
+        asientosReservados.push(n);asientosApartando.delete(n);
+        const seat=[...document.querySelectorAll('.seat')].find(s=>s.textContent==n);
+        if(seat){seat.classList.remove('selected','apartando');seat.classList.add('reserved');}
+      });
+      seleccionados.clear();
+      actualizarInterfaz();
+      alert('Asientos confirmados y ahora están en rojo');
+    };
+  </script>
+</div>
+</body>
+</html>
